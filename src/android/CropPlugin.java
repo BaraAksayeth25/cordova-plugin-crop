@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +25,14 @@ public class CropPlugin extends CordovaPlugin {
     private CallbackContext callbackContext;
     private Uri inputUri;
     private Uri outputUri;
+
+    @Override
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+        Activity activity = cordova.getActivity();
+
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+    }
 
     @Override
     public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
